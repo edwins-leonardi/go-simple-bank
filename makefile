@@ -1,5 +1,5 @@
 postgres:
-	docker run --name postgres-go -p 54322:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres
+	docker run --name postgres-go -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres
 
 createdb:
 	docker exec -it postgres-go createdb --username=root --owner=root simple_bank
@@ -8,10 +8,10 @@ dropdb:
 	docker exec -it postgres-go dropdb --username=root --owner=root simple_bank
 
 migrateup:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:54322/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 
 migratedown:
-	migrate -path db/migration -database "postgresql://root:secret@localhost:54322/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 
 sqlc:
 	sqlc generate
